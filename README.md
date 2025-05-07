@@ -201,7 +201,7 @@ options:
 At last, once we have a word-to-frequency map, we can apply the Latin spellchecker. 
 Along with this map, this spellchecker takes as input a text file. 
 For each text to which we applied the spellchecker, we created a text file with a sentence on each line.
-In its output ifle, the spellchecker reports which words in a line are not known and which line they are on. 
+In its output file, the spellchecker reports which words in a line are not known and which line they are on. 
 
 This spellchecker contains some Latin-specific handling. 
 For instance, it avoids flagging valid Latin words which have valid Latin enclitics (*e.g.*, "-que", "-ve") attached to them.
@@ -229,7 +229,7 @@ options:
 
 #### Analyzing a Digital Edition (`epidoc_analyzer.py`)
 
-Our last CLI computes statistics for our digital editions. 
+Our next CLI computes statistics for our digital editions. 
 Given a directory containing XML files, this program retrieves and loads the text from these files. 
 After some minor preprocessing, it uses the `LatinWordTokenizer` and `LatinPunktSentenceTokenizer` from the Classical Language Toolkit (CLTK) to split and count the words and sentences in each file (Johnson *et al.*, 2021). 
 Note that, for our word count, we do *not* count enclitics separately and do not count punctuation marks at all.
@@ -243,6 +243,108 @@ options:
   -h, --help            show this help message and exit
   --input-directory INPUT_DIRECTORY
                         path to directory containing EpiDoc-compliant digital editions of texts
+```
+
+#### Cleaning OCR and Post-OCR Data (`lace_ocr_training_generator.py`, `lace_training_checker.py`, `lace_training_postprocessor.py`)
+
+In addition to our scripts for creating digital editions, we also present additional scripts for developing OCR and post-OCR datasets.
+After downloading OCR and post-OCR datasets from Lace, we employ a few scripts to clean and reformat these datasets. 
+
+Our first script takes in a TSV file from Lace. 
+It then cleans a few common issues: 
+bookmark characters (📖×) left in the text,
+directional quotation marks facing the wrong direction,
+and XML artifacts (*e.g.*, `&amp;`) being retained in the text.
+It also allows for the absolute filepaths that Lace traditionally uses to be reformatted into relative filepaths.
+
+```
+>>> python lace_training_postprocessor.py -h 
+usage: lace_training_postprocessor.py [-h] --current-tsv-filepath CURRENT_TSV_FILEPATH --dataset-type DATASET_TYPE [--filter-bookmarks | --no-filter-bookmarks]
+                                      [--filter-xml-artifacts | --no-filter-xml-artifacts] [--fix-smart-quotes | --no-fix-smart-quotes]
+                                      [--new-image-directory NEW_IMAGE_DIRECTORY] --new-tsv-filepath NEW_TSV_FILEPATH
+
+options:
+  -h, --help            show this help message and exit
+  --current-tsv-filepath CURRENT_TSV_FILEPATH
+                        path to where TSV file to be postprocessed is stored
+  --dataset-type DATASET_TYPE
+                        the type of dataset (e.g., OCR or post-OCR) to be processed
+  --filter-bookmarks, --no-filter-bookmarks
+                        flag to determine whether bookmark symbols will be cleaned (default: False)
+  --filter-xml-artifacts, --no-filter-xml-artifacts
+                        flag to determine whether XML artifacts (e.g., &amp;) will be cleaned (default: False)
+  --fix-smart-quotes, --no-fix-smart-quotes
+                        flag to determine whether initial smart quotes will be fixed to be the correct character (default: False)
+  --new-image-directory NEW_IMAGE_DIRECTORY
+                        path to directory where images will be relocated
+  --new-tsv-filepath NEW_TSV_FILEPATH
+                        path to where TSV file with postprocessing changes will be stored
+```
+
+While many errors can be handled automatically, some are less straightforward. 
+The current version of Lace is beholden to the structure of hOCR files: 
+if the same text is in multiple bounding boxes, it may be represented more than once (depending on transcription policy).
+As a result, this script helps to find potential adjacent duplicates so that they can be manually remedied.
+
+``` 
+python lace_training_checker.py -h       
+usage: lace_training_checker.py [-h] [--output-filepath OUTPUT_FILEPATH] --tsv-filepath TSV_FILEPATH
+
+options:
+  -h, --help            show this help message and exit
+  --output-filepath OUTPUT_FILEPATH
+                        path to file where lines with potential text duplication will be recorded
+  --tsv-filepath TSV_FILEPATH
+                        a path to a TSV file containing OCR data in Lace's designated format
+```
+
+The final script we present for dataset cleaning and formatting takes a Lace OCR file as input. 
+It saves the resulting TSV file as a set of cropped images and ground truth transcription text files. 
+In this format, the data becomes suitable for use in training models with OCR engines like Tesseract and Calamari.
+
+```
+>>> python lace_ocr_training_generator.py -h
+usage: lace_ocr_training_generator.py [-h] [--image-format {jpg,png,tif}] --output-directory OUTPUT_DIRECTORY --tsv-filepath TSV_FILEPATH [-v | --verbose | --no-verbose]
+
+Generate OCR training set from Lace TSV output.
+
+options:
+  -h, --help            show this help message and exit
+  --image-format {jpg,png,tif}
+                        type of image to save as output alongside ground truth text transcriptions
+  --output-directory OUTPUT_DIRECTORY
+                        path to directory where images and ground truth text transcriptions will be stored
+  --tsv-filepath TSV_FILEPATH
+                        a path to a TSV file containing OCR data in Lace's designated format
+  -v, --verbose, --no-verbose
+                        flag indicating whether additional information about training set generation should be displayed (default: False)
+```
+
+#### Analyzing OCR and Post-OCR Data (`lace_dataset_analyzer.py`)
+
+Lastly, we present a script to analyze OCR and post-OCR data. 
+Metrics available include: page count, line count, word count, character count, and a pair of character error rates with different origin points (specifically for the post-OCR dataset). 
+Note that "word" units are determined by our version of the `LatinWordTokenizer` from CLTK, 
+and they may count both ends of hyphenated units due to the structure of the data.
+
+This script prints results to the console on a per-file basis and also in aggregate. 
+For character error rates, we compute a micro-average across all TSV files. 
+In other words, we sum all expected maximum error counts and actual error counts before computing the error rate.
+
+```
+>>> python lace_dataset_analyzer.py -h  
+usage: lace_dataset_analyzer.py [-h] --dataset-type DATASET_TYPE [--metrics METRICS [METRICS ...]] [--processes PROCESSES] --tsv-directory TSV_DIRECTORY
+
+options:
+  -h, --help            show this help message and exit
+  --dataset-type DATASET_TYPE
+                        the type of dataset (e.g., OCR or post-OCR) to be processed
+  --metrics METRICS [METRICS ...]
+                        a set of one or more metrics to be computed in dataset analysis
+  --processes PROCESSES
+                        number of processes to be used for computing metrics; only applies to error rates
+  --tsv-directory TSV_DIRECTORY
+                        path to directory where collection of TSV files are stored
 ```
 
 ### Supplementary Data
