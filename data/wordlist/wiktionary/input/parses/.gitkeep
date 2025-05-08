@@ -1,0 +1,3 @@
+# Expected Data:
+
+The output from using `wiktionary_parser.py` on the scraped data in `data/wiktionary/input/pages` should go here.

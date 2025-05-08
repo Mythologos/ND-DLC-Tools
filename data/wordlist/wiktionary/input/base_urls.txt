@@ -1,0 +1,2 @@
+# URL for collecting all Latin lemmata available on Wiktionary:
+https://en.wiktionary.org/wiki/Category:Latin_lemmas

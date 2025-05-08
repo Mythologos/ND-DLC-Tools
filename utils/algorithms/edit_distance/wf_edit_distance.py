@@ -3,8 +3,7 @@ from typing import Callable, Sequence
 from numpy import dtype, zeros
 from numpy.typing import NDArray, DTypeLike
 
-from .constants import EditOperation
-from .constants import CostFunction
+from .constants import CostFunction, EditOperation
 
 
 # We initialize the chart in accordance with Wagner and Fischer's Algorithm X.

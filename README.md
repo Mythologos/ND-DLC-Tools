@@ -11,6 +11,10 @@ This repository contains code and supplementary data related to the authors' wor
 The codebase includes a variety of command line interfaces (CLIs) which can permit the process of OCR-ing and post-correcting texts. 
 In particular, these tools are heavily focused on Latin texts.
 
+### Use
+
+...
+
 ## Directory Structure
 
 This codebase contains three major fixtures. The first is (as previously mentioned) a set of command line interfaces, all of which are in the main directory. 
