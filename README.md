@@ -300,7 +300,7 @@ options:
 
 The final script we present for dataset cleaning and formatting takes a Lace OCR file as input. 
 It saves the resulting TSV file as a set of cropped images and ground truth transcription text files. 
-In this format, the data becomes suitable for use in training models with OCR engines like Tesseract and Calamari.
+In this format, the data becomes suitable for use in training models with OCR engines like Tesseract (Smith, 2007) and Calamari (Wick, 2020).
 
 ```
 >>> python lace_ocr_training_generator.py -h
@@ -586,6 +586,34 @@ For other libraries noted above, see the below bibliographic entries:
   copyright = {2001 INIST-CNRS},
   langid = {english},
   keywords = {Applied linguistics,Computational linguistics,Linguistics},
+}
+
+@inproceedings{smithOverviewTesseractOCR2007,
+  title = {An Overview of the Tesseract {{OCR}} Engine},
+  booktitle = {Ninth International Conference on Document Analysis and Recognition ({{ICDAR}} 2007)},
+  author = {Smith, R.},
+  year = {2007},
+  volume = {2},
+  pages = {629--633},
+  publisher = {IEEE},
+  address = {Curitiba, Brazil},
+  doi = {10.1109/ICDAR.2007.4376991},
+  abstract = {The Tesseract OCR engine, as was the HP Research Prototype in the UNLV Fourth Annual Test of OCR Accuracy, is described in a comprehensive overview. Emphasis is placed on aspects that are novel or at least unusual in an OCR engine, including in particular the line finding, features/classification methods, and the adaptive classifier.},
+  langid = {english},
+  keywords = {Filters,Independent component analysis,Inspection,Open source software,Optical character recognition software,Pipelines,Prototypes,Search engines,Testing,Text recognition}
+}
+
+@article{wickCalamariHighPerformanceTensorflowbased2020,
+  title = {Calamari - {{A High-Performance Tensorflow-based Deep Learning Package}} for {{Optical Character Recognition}}},
+  author = {Wick, Christoph and Reul, Christian and Puppe, Frank},
+  year = {2020},
+  journal = {Digital Humanities Quarterly},
+  volume = {14},
+  number = {2},
+  issn = {1938-4122},
+  urldate = {2025-05-07},
+  abstract = {Optical Character Recognition (OCR) on contemporary and historical data is still in the focus of many researchers. Especially historical prints require book specific trained OCR models to achieve applicable results [Springmann and L{\"u}deling 2017] [Reul et al. 2017a]. To reduce the human effort for manually annotating ground truth (GT) various techniques such as voting and pretraining have shown to be very efficient [Reul et al. 2018a] [Reul et al. 2018b]. Calamari is a new open source OCR line recognition software that both uses state-of-the art Deep Neural Networks (DNNs) implemented in Tensorflow and giving native support for techniques such as pretraining and voting. The customizable network architectures constructed of Convolutional Neural Networks (CNNS) and Long-Short-Term-Memory (LSTM) layers are trained by the so-called Connectionist Temporal Classification (CTC) algorithm of Graves et al. (2006). Optional usage of a GPU drastically reduces the computation times for both training and prediction. We use two different datasets to compare the performance of Calamari to OCRopy, OCRopus3, and Tesseract 4. Calamari reaches a Character Error Rate (CER) of 0.11\% on the UW3 dataset written in modern English and 0.18\% on the DTA19 dataset written in German Fraktur, which considerably outperforms the results of the existing softwares.},
+  copyright = {Creative Commons Attribution-NoDerivatives 4.0 International License},
 }
 
 @misc{wiktionarycontributorsCategoryLatinLemmas2022,
