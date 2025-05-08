@@ -1,0 +1,7 @@
+name: Lace-Builder
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pip:
+      - lacebuilder==0.1.2

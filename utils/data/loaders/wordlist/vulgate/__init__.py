@@ -1,0 +1,1 @@
+from .vulgate_loader import VulgateProperNameDataset

@@ -1,0 +1,15 @@
+name: ND-DLC-Tools
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - chardet
+  - natsort
+  - scrapy
+  - pytesseract
+  - pip:
+      - beautifulsoup4
+      - cltk
+      - tensor2tensor
+      - pdf2image
