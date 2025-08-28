@@ -13,7 +13,10 @@ In particular, these tools are heavily focused on Latin texts.
 
 ### Use
 
-...
+We license the code in this repository under an Apache License 2.0. 
+Please see the license, which we have provided in the outermost `LICENSE` file of our repository, for more details.
+
+We use but do not change the `chardet` library (available [here](https://pypi.org/project/chardet/) under an LGPL-2.1+ license) through `beautifulsoup4` (available [here](https://pypi.org/project/beautifulsoup4/)).
 
 ## Directory Structure
 
