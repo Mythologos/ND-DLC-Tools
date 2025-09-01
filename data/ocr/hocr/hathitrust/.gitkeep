@@ -1,0 +1,3 @@
+# Expected Data:
+
+To populate this folder with hOCR directories, use the `hocr_applier.py` file with each of the directories in `data/ocr/images/hathitrust`.

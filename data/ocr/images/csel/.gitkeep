@@ -1,0 +1,5 @@
+# Expected Data:
+
+To populate this folder with image directories, use the `pdf_converter.py` file with each of the PDFs in `data/ocr/pdf/csel`.
+We also make the images that we used explicitly available in our sister repository, the Corpus Correctum.
+Additionally, the original images we used are available in XAR files suffixed with "images" under `data/ocr/xar/csel`.

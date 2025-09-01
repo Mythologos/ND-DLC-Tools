@@ -1,0 +1,5 @@
+# Expected Data:
+
+To populate this folder with hOCR directories, use the `hocr_applier.py` file with each of the directories in `data/ocr/images/csel`.
+The hOCR files that we used, with slight alterations to change the path corresponding to each image file listed in each hOCR file,
+are available in XAR files suffixed with "texts" given in `data/ocr/xar/csel`.

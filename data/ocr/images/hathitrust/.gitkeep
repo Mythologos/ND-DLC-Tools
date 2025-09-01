@@ -1,0 +1,4 @@
+# Expected Data:
+
+To populate this folder with image directories, use the `pdf_converter.py` file with each of the PDFs placed in `data/ocr/pdf/hathitrust`.
+Note that John of Salisbury's text needs the grayscale flag for quality results.
