@@ -11,8 +11,8 @@ from utils.data.spellchecking import construct_frequency_mapping, gather_corpora
 if __name__ == "__main__":
     parser: ArgumentParser = ArgumentParser()
     parser.add_argument(
-        "--corpora", type=str, nargs="+", choices=[getattr(item, "value") for item in NamedCorpus],
-        help=SpellingMapBuilderMessage.CORPORA
+        "--corpora", type=str, nargs="*", choices=[getattr(item, "value") for item in NamedCorpus],
+        help=SpellingMapBuilderMessage.CORPORA, default=[]
     )
     parser.add_argument("--output-filepath", type=Path, required=True, help=GeneralMessage.MAP_FILEPATH)
     parser.add_argument(
@@ -21,8 +21,8 @@ if __name__ == "__main__":
     )
     args: Namespace = parser.parse_args()
 
-    frequency_mapping: dict[str, int] = construct_frequency_mapping(args.input_wordlists)
-    corpora: list[CorpusDatasetSubclass] = gather_corpora(args.input_corpora)
+    frequency_mapping: dict[str, int] = construct_frequency_mapping(args.wordlists)
+    corpora: list[CorpusDatasetSubclass] = gather_corpora(args.corpora)
     gather_frequencies(frequency_mapping, corpora)
 
     with args.output_filepath.open(mode="w+", encoding="utf-8") as output_file:
