@@ -34,13 +34,13 @@ Regarding the data in the `wordlist` and `mapping` subfolders, note that:
 - ... the wordlist derived from the work of Keeline and Kirby (2019) comes from data made available under an MIT license.
 - ... the wordlist derived from the Perseus Digital Library's digital edition of *The Latin Dictionary* by Lewis and Short (1879) comes from data available under a CC BY-SA license.
 - ... the wordlist derived from Tesserae's copy of Jerome's *Vulgate* comes from data placed in the public domain by its original creator.
-- ... the wordlist derived from Wiktionary comes from data available under both a CC-BY-SA 4.0 license and a GFDL license.
+- ... the wordlist derived from Wiktionary comes from data available under both a CC BY-SA 4.0 license and a GFDL license.
 
 We replicate the licenses for each data source in each of their respective subfolders. 
 We also license the wordlists derived from them with the same license, save for the Keeline and Kirby (2019) wordlist. 
-We instead apply a CC-BY-SA 4.0 license to our derivative data.
+We instead apply a CC BY-SA 4.0 license to our derivative data.
 
-Since the data in the `mapping` subfolder is derived from a combination of these data sources, we in turn license it with a CC-BY-SA 4.0 license.
+Since the data in the `mapping` subfolder is derived from a combination of these data sources, we in turn license it with a CC BY-SA 4.0 license.
 
 ## Directory Structure
 
