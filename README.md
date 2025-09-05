@@ -60,7 +60,7 @@ We also provide the separate `lace_builder.yml` file to use that codebase for pa
 #### Preparing a PDF for OCR (`pdf_converter.py`)
 
 To start the process of creating a digital edition, we first needed to find scans for the pages of a physical edition. 
-These scans are often stored in PDFs rather than as independent image. 
+These scans are often stored in PDFs rather than as independent images. 
 We apply the `pdf2image` library to do this. We provide a number of the command line options that that library does to facilitate splitting PDFs under different conditions. 
 The main optional flag in use was grayscaling, and we only applied it when the pages were in color. 
 
@@ -138,8 +138,9 @@ lacebuilder --outputdir data/ocr/xar/csel --metadatafile data/ocr/metadata/csel/
 #### Collecting Materials for a Spellchecker (`wiktionary_scraper.py`, `wiktionary_parser.py`, `wordlist_constructor.py`)
 
 After post-correcting Tesseract's OCR for our texts in Lace, we applied a set of additional post-correction steps. 
-One such step involved using a Latin spellchecker. To build this spellchecker, we needed to (1) gather lists of valid Latin words, and (2) determine their frequency. 
-Having these values together would create a mapping that could be integrated with the `pyspellchecker` library.
+One such step involved using a Latin spellchecker. To build this spellchecker, we needed to gather lists of valid Latin words. 
+Combining these wordlists would create a resource that could be integrated with the `pyspellchecker` library.
+We could also augment this mapping with frequency counts from a corpus to determine likely candidates for correction.
 
 One wordlist we chose to gather was from Wiktionary. 
 Wiktionary documents a variety of Latin words across its long history, making it an ideal resource for our multi-period set of digital editions. 
@@ -152,7 +153,7 @@ We filtered out pages whose headwords met certain qualifications. For instance:
 
 We applied all filters; however, the option is provided not to use some (or any) filters. 
 Use of this tool will take some time due to all the pages that need to be scraped. 
-In addition, due to the changing nature of Wiktionary, subsequent scrapes will likely not be identical. 
+In addition, due to the changing nature of Wiktionary, subsequent scrapes will very likely not be identical. 
 All pages are saved as HTML files.
 
 ```
