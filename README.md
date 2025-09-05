@@ -436,11 +436,9 @@ We do not intend to heavily maintain this code, as it is meant to represent our 
 
 ## Citations
 
-To cite this repository, please use the following citation:
+[![DOI](https://zenodo.org/badge/979049327.svg)](https://doi.org/10.5281/zenodo.17064255)
 
-```bibtex
-...
-```
+Alongside our Zenodo page, we will provide a citation for a whitepaper corresponding to this work once (hopefully) published.
 
 ### Textual Sources
 
