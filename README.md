@@ -63,6 +63,13 @@ To start the process of creating a digital edition, we first needed to find scan
 These scans are often stored in PDFs rather than as independent images. 
 We apply the `pdf2image` library to do this. We provide a number of the command line options that that library does to facilitate splitting PDFs under different conditions. 
 The main optional flag in use was grayscaling, and we only applied it when the pages were in color. 
+For all other processing flags, we used the default values given in our `pdf_converter.py` file, which are:
+- `--no-cropbox`
+- `--dpi`: `200`
+- `--no-grayscale`
+- `--no-pdftocairo`
+- `--no-strict-errors`
+- `--output-format`: `png`
 
 Regarding saving extracted pages, the `pdf2image` library saves each image with a four-digit text ID (starting from `0001`) and a four-digit page ID (starting from the same point). 
 The default `output-format` will save pages as `page-XXXX-YYYY`, where `XXXX` is the text ID and `YYYY` is the page ID.
@@ -99,7 +106,7 @@ The `pdf2image` library provides instructions on how to do so in [its README](ht
 #### Applying Tesseract OCR (`hocr_applier.py`)
 
 After we obtain discrete pages from a PDF, we can apply an OCR model from Tesseract to these changes with the `pytesseract` library. 
-We used the Latin (`lat`) and Ancient Greek (`grc`) models from Tesseract for all texts. 
+We used the Latin (`lat`) and Ancient Greek (`grc`) models from Tesseract for all texts (incorporated as arguments to `--languages`). 
 We save the result for each page as a hOCR file. 
 When combined with the image files produced by `pdf_converter.py` and some XML-based metadata files, this data can be used with the Lace OCR post-correction software.
 
